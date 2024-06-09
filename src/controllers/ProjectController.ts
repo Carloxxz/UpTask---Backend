@@ -46,12 +46,16 @@ export class ProjectController {
         const { id } = req.params
 
         try {
-            const project = await Project.findByIdAndUpdate(id, req.body)
+            const project = await Project.findById(id)
 
             if (!project) {
                 const error = new Error('Proyecto no encontrado')
                 return res.status(404).json({ error: error.message })
             }
+
+            project.clientName = req.body.clientName
+            project.projectName = req.body.projectName
+            project.description = req.body.descripción
 
             await project.save()
             res.json(project)
@@ -71,7 +75,6 @@ export class ProjectController {
                 const error = new Error('Proyecto no encontrado')
                 return res.status(404).json({ error: error.message })
             }
-
 
             await project.deleteOne()
             res.send('Proyecto Eliminado')

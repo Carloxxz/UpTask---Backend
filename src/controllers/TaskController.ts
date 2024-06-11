@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import Task from "../models/Taks";
+import Task from "../models/Task";
 
 export class TaskController {
     static createTask = async (req: Request, res: Response) => {

@@ -14,7 +14,7 @@ export async function taskExist(req: Request, res: Response, next: NextFunction)
         const { taskId } = req.params
         const task = await Task.findById(taskId)
         if (!task) {
-            const error = new Error('Tarea no encontrado')
+            const error = new Error('Tarea no encontrada')
             return res.status(404).json({ error: error.message })
         }
         req.task = task

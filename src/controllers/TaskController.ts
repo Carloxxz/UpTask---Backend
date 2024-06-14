@@ -12,7 +12,7 @@ export class TaskController {
             await Promise.allSettled([task.save(), req.project.save()])
             res.send('Tarea creada correctamente')
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un erros' })
+            res.status(500).json({ error: 'Hubo un error' })
         }
     }
 
@@ -21,7 +21,7 @@ export class TaskController {
             const tasks = await Task.find({ project: req.project.id }).populate('project')
             res.json(tasks)
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un erros' })
+            res.status(500).json({ error: 'Hubo un error' })
         }
     }
 
@@ -29,7 +29,7 @@ export class TaskController {
         try {
             res.json(req.task)
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un erros' })
+            res.status(500).json({ error: 'Hubo un error' })
         }
     }
 

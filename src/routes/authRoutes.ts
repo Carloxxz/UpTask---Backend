@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/authController";
+import { AuthController } from "../controllers/AuthController";
 import { body } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 
@@ -37,6 +37,21 @@ router.post('/login',
         .notEmpty().withMessage('El password puede ir vacío'),
     handleInputErrors,
     AuthController.login
+)
+
+router.post('/login',
+    body('email')
+        .isEmail().withMessage('E-mail no válido'),
+    body('password')
+        .notEmpty().withMessage('El password puede ir vacío'),
+    handleInputErrors,
+    AuthController.login
+)
+
+router.post('/request-code',
+    body('email')
+        .isEmail().withMessage('E-mail no válido'),
+    AuthController.requestConfirmationCode
 )
 
 export default router

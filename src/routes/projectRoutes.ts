@@ -5,8 +5,11 @@ import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
 import { taskBelongsToProject, taskExist } from "../middleware/task";
+import { authenticate } from "../middleware/auth";
 
 const router = Router()
+
+router.use(authenticate)
 
 router.post('/',
     body('projectName')
@@ -16,11 +19,11 @@ router.post('/',
     body('description')
         .notEmpty().withMessage('La Descripción del Proyecto es Obligatoria'),
     handleInputErrors,
-
     ProjectController.createProject
 )
 
-router.get('/', ProjectController.getAllProjects)
+router.get('/',
+    ProjectController.getAllProjects)
 
 router.get('/:id',
     param('id').isMongoId().withMessage('ID no válido'),
